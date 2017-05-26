@@ -2,7 +2,6 @@ package android.example.com.kotlinoidruntimepermissions
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,9 +11,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.techwolf.android.sample.permissions.AppPermission
 import com.techwolf.android.sample.permissions.handlePermission
+import com.techwolf.android.sample.permissions.onRequestPermissionsResultReceived
 import com.techwolf.android.sample.permissions.requestPermission
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main.content_view as contentView
 import kotlinx.android.synthetic.main.content_main.image_view as imageView
 
 
@@ -30,19 +30,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
-
-            handlePermission(AppPermission.CAMERA_PERMISSION,
-            onGranted = {
-               captureCameraImage(it.requestCode)
-            },
-            onDenied = {
-                requestPermission(it)
-            },
-            onExplanationNeeded = {
-                snackbarWithAction(it.explanationMsgId) {
-                    requestPermission(it)
-                }
-            })
+            captureCameraImage()
         }
     }
 
@@ -70,29 +58,35 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == AppPermission.CAMERA_PERMISSION.requestCode) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                captureCameraImage(AppPermission.CAMERA_PERMISSION.requestCode)
-            } else {
-                snackbarWithoutAction(AppPermission.CAMERA_PERMISSION.deniedMsgId)
-            }
-        }
+        onRequestPermissionsResultReceived(requestCode, permissions, grantResults,
+                onPermissionGranted = {
+                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
+                },
+                onPermissionDenied = {
+                    snackbarWithoutAction(it.deniedMsgId)
+                }
+        )
     }
 
-    fun captureCameraImage(requestCode: Int) {
-        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), requestCode)
-    }
+    fun captureCameraImage() = handlePermission(AppPermission.CAMERA_PERMISSION,
+            onGranted = {
+                startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
+            },
+            onDenied = {
+                requestPermission(it)
+            },
+            onExplanationNeeded = {
+                snackbarWithAction(it.explanationMsgId) {
+                    requestPermission(it)
+                }
+            })
 
     fun snackbarWithAction(messageId: Int, action: () -> Unit) {
-        Snackbar.make(content_view, messageId,
-                Snackbar.LENGTH_LONG)
-                .setAction(R.string.request_permission) {
-                    action()
-                }.show()
+        Snackbar.make(contentView, messageId, Snackbar.LENGTH_LONG)
+                .setAction(R.string.request_permission) { action() }
+                .show()
     }
 
-    fun snackbarWithoutAction(messageId: Int) {
-        Snackbar.make(content_view, messageId,
-                Snackbar.LENGTH_SHORT).show()
-    }
+    fun snackbarWithoutAction(messageId: Int) =
+            Snackbar.make(contentView, messageId, Snackbar.LENGTH_SHORT).show()
 }
