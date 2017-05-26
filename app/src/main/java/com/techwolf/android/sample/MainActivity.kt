@@ -3,9 +3,6 @@ package android.example.com.kotlinoidruntimepermissions
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.example.com.kotlinoidruntimepermissions.permissions.AppPermission
-import android.example.com.kotlinoidruntimepermissions.permissions.handlePermission
-import android.example.com.kotlinoidruntimepermissions.permissions.requestPermission
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,6 +10,9 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.techwolf.android.sample.permissions.AppPermission
+import com.techwolf.android.sample.permissions.handlePermission
+import com.techwolf.android.sample.permissions.requestPermission
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.content_main.image_view as imageView
@@ -32,11 +32,13 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
 
             handlePermission(AppPermission.CAMERA_PERMISSION,
-                    onGranted = {
-                        captureCameraImage(it.requestCode)
-                    }, onDenied = {
+            onGranted = {
+               captureCameraImage(it.requestCode)
+            },
+            onDenied = {
                 requestPermission(it)
-            }, onExplanationNeeded = {
+            },
+            onExplanationNeeded = {
                 snackbarWithAction(it.explanationMsgId) {
                     requestPermission(it)
                 }

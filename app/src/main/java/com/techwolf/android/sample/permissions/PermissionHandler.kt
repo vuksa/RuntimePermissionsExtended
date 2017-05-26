@@ -1,6 +1,6 @@
 @file:JvmName("PermissionHandler")
 
-package android.example.com.kotlinoidruntimepermissions.permissions
+package com.techwolf.android.sample.permissions
 
 import android.app.Activity
 import android.content.pm.PackageManager

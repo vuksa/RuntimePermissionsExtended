@@ -1,4 +1,4 @@
-package android.example.com.kotlinoidruntimepermissions.permissions
+package com.techwolf.android.sample.permissions
 
 import android.Manifest
 import android.example.com.kotlinoidruntimepermissions.R
