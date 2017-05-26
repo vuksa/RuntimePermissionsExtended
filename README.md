@@ -1,6 +1,6 @@
 # KotlinoidRuntimePermission
 Kotlin extension functions that make permission handling concise and little bit easier.
->This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
+This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
 #### Where to store all permissions required by app?
 
@@ -17,7 +17,7 @@ enum class AppPermission(val permissionName: String,
     requestCode = 1, 
     deniedMsgId = R.string.permission_camera_denied, 
     explanationMsgId = R.string.permission_camera_explanation);
-    /** Other permissions **/
+    /** add other permissions **/
 }
 
 ```
@@ -31,6 +31,7 @@ permission explanation is needed
 #### HOW TO REQUEST PERMISSION
 
 In place where you need to perform operation that needs system permission execute next code block:
+
 Example - requesting camera permission:
 ```kotlin
 fun captureCameraImage(){
@@ -69,9 +70,9 @@ fun handlePermission(permission: AppPermission,
   * *we should show to user dialog with explanation, if user agrees we should request permission*
 
 
-#### HOW TO HANDLE onPermissionRequestResult callback
+#### HOW TO HANDLE onPermissionRequestResult CALLBACK?
 
-##TBD
+TBD
 
 
-> Note: Currently these extensions are only to handle one permission request at the time. 
+> Note: Currently these permission extensions are only able to handle one permission request at the time. 
