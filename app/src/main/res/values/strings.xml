@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">KotlinRuntimePermissions</string>
+  <string name="action_settings">Settings</string>
+
+  <!--PERMISSION HANDLING-->
+  <string name="request_permission">Request</string>
+  <string name="permission_camera_explanation">Application needs CAMERA_PERMISSION in order to capture image. Please allow permission.</string>
+  <string name="permission_camera_denied">Please enable CAMERA_PERMISSION. Go to \nSettings -> Apps -> KotlinRuntimePermissions -> Permission</string>
+</resources>
