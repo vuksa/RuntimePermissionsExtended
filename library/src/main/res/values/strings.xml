@@ -1,0 +1,70 @@
+<resources>
+  <string name="app_name">RuntimePermissionsExtended</string>
+
+  <!--PERMISSION HANDLING-->
+  <string name="request_permission">Request</string>
+  <!--CAMERA PERMISSIONS-->
+  <string name="permission_camera_explanation">Application needs CAMERA_PERMISSION in order to capture image. Please allow permission.</string>
+  <string name="permission_camera_denied">Please enable CAMERA_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <!--CALENDAR PERMISSIONS-->
+  <string name="permission_read_calendar_explanation">Application needs READ_CALENDAR_PERMISSION in order access calendar. Please allow permission.</string>
+  <string name="permission_read_calendar_denied">Please enable READ_CALENDAR_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_write_calendar_explanation">Application needs WRITE_CALENDAR_PERMISSION in order access calendar. Please allow permission.</string>
+  <string name="permission_write_calendar_denied">Please enable WRITE_CALENDAR_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <!--CONTACTS PERMISSIONS-->
+  <string name="permission_write_contacts_explanation">Application needs WRITE_CONTACTS_PERMISSION in order access contacts. Please allow permission.</string>
+  <string name="permission_write_contacts_denied">Please enable WRITE_CONTACTS_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_read_contacts_explanation">Application needs READ_CONTACTS_PERMISSION in order access contacts. Please allow permission.</string>
+  <string name="permission_read_contacts_denied">Please enable READ_CONTACTS_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_get_account_explanation">Application needs GET_ACCOUNTS_PERMISSION in order access your accounts. Please allow permission.</string>
+  <string name="permission_get_account_denied">Please enable GET_ACCOUNTS_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+
+  <!--LOCATION PERMISSION-->
+  <string name="permission_access_fine_location_explanation">Application needs ACCESS_FINE_LOCATION_PERMISSION in order to access your location. Please allow permission.</string>
+  <string name="permission_access_fine_location_denied">Please enable ACCESS_FINE_LOCATION_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_access_coarse_location_explanation">Application needs ACCESS_COARSE_LOCATION_PERMISSION in order access your location. Please allow permission.</string>
+  <string name="permission_access_coarse_location_denied">Please enable ACCESS_COARSE_LOCATION_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+
+  <!--MICROPHONE PERMISSIONS-->
+  <string name="permission_record_audio_explanation">Application needs RECORD_AUDIO_PERMISSION in order to use microphone. Please allow permission.</string>
+  <string name="permission_record_audio_denied">Please enable RECORD_AUDIO_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+
+  <!--PHONE PERMISSIONS-->
+  <string name="permission_read_phone_state_explanation">Application needs READ_PHONE_STATE_PERMISSION in order to access phone state. Please allow permission.</string>
+  <string name="permission_read_phone_state_denied">Please enable READ_PHONE_STATE_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_call_phone_explanation">Application needs CALL_PHONE_PERMISSION in order to make a call. Please allow permission.</string>
+  <string name="permission_call_phone_denied">Please enable CALL_PHONE_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_read_call_log_explanation">Application needs READ_CALL_LOG_PERMISSION in order to read call log. Please allow permission.</string>
+  <string name="permission_read_call_log_denied">Please enable READ_CALL_LOG_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_write_call_log_explanation">Application needs WRITE_CALL_LOG_PERMISSION in order to write into call log. Please allow permission.</string>
+  <string name="permission_write_call_log_denied">Please enable WRITE_CALL_LOG_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_add_voicemail_explanation">Application needs ADD_VOICEMAIL_PERMISSION in order to add voicemail. Please allow permission.</string>
+  <string name="permission_add_voicemail_denied">Please enable ADD_VOICEMAIL_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_use_sip_explanation">Application needs USE_SIP_PERMISSION in order to use SIP. Please allow permission.</string>
+  <string name="permission_use_sip_denied">Please enable USE_SIP_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+  <string name="permission_process_outgoing_calls_explanation">Application needs PROCESS_OUTGOING_CALLS_PERMISSION in order to process outgoing calls. Please allow permission.</string>
+  <string name="permission_process_outgoing_calls_denied">Please enable PROCESS_OUTGOING_CALLS_PERMISSION. Go to \nSettings -> Apps -> Permissions</string>
+
+  <!--SENSOR PERMISSIONS-->
+  <string name="permission_body_sensor_explanation">Application needs BODY_SENSORS_PERMISSION in order to use body sensor. Please allow permission.</string>
+  <string name="permission_body_sensor_denied">Please enable BODY_SENSORS_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+
+  <!--SMS PERMISSIONS-->
+  <string name="permission_send_sms_explanation">Application needs SEND_SMS_PERMISSION in order to send SMS. Please allow permission.</string>
+  <string name="permission_send_sms_denied">Please enable SEND_SMS_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <string name="permission_receive_sms_explanation">Application needs RECEIVE_SMS_PERMISSION in order to receive SMS. Please allow permission.</string>
+  <string name="permission_receive_sms_denied">Please enable RECEIVE_SMS_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <string name="permission_receive_mms_explanation">Application needs RECEIVE_MMS_PERMISSION in order to receive MMS. Please allow permission.</string>
+  <string name="permission_receive_mms_denied">Please enable RECEIVE_MMS_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <string name="permission_read_sms_explanation">Application needs READ_SMS_PERMISSION in order to read SMS. Please allow permission.</string>
+  <string name="permission_read_sms_denied">Please enable READ_SMS_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <string name="permission_receive_wap_push_explanation">Application needs RECEIVE_WAP_PUSH_PERMISSION in order to receive WAP SMS. Please allow permission.</string>
+  <string name="permission_receive_wap_push_denied">Please enable RECEIVE_WAP_PUSH_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+  <string name="permission_read_ext_storage_explanation">Application needs READ_EXTERNAL_STORAGE_PERMISSION in order to read from disk memory. Please allow permission.</string>
+  <string name="permission_read_ext_storage_denied">Please enable READ_EXTERNAL_STORAGE_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+
+  <!--READ/WRITE TO STORAGE PERMISSIONS-->
+  <string name="permission_write_ext_storage_explanation">Application needs WRITE_EXTERNAL_STORAGE_PERMISSION in order to write into disk memory. Please allow permission.</string>
+  <string name="permission_write_ext_storage_denied">Please enable WRITE_EXTERNAL_STORAGE_PERMISSION. Go to \nSettings -> Apps -> Permission</string>
+
+</resources>
