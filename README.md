@@ -1,7 +1,7 @@
 # RuntimePermissionsExtended 
 
 This project provides Kotlin extension functions that make permission handling easier and more concise.
-This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
+These extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
 ## Usage
 
