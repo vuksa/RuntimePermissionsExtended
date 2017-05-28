@@ -85,7 +85,7 @@ fun handlePermission(permission: AppPermission,
 
 >Note: In every permission request callback block you can access instance of requested AppPermission via Kotlin keyword ''**it**'' (implicit name of a single parameter).
 
-### Step 2: Handle *`onPermissionRequestResult`* callback
+### Step 2: Handle *`onRequestPermissionResult`* callback
 
 In Activity or Fragment where you need CAMERA permission you should override `onRequestPermissionsResult` function and delegate its parameters
 to [onRequestPermissionsResultReceived](https://github.com/Vuksa/KotlinoidRuntimePermission/blob/master/library/src/main/kotlin/com/techwolf/android/permissionhandler/PermissionHandler.kt#L75) extension functions as in example bellow:
@@ -119,7 +119,7 @@ fun onRequestPermissionsResultReceived(requestCode: Int, permissions: Array<out 
 * *`permissions`* - the requested permissions. Never null.
 * *`grantResults`* - the grant results for the corresponding permissions.
 * *`onPermissionGranted`* - lambda block that will be executed if permission is granted.
-* *`onPermissionGranted`* - lambda block that will be executed if permission is denied.
+* *`onPermissionDenied`* - lambda block that will be executed if permission is denied.
 
 
 >**Important Note:** Currently, these permission extensions are only able to handle one permission request at the time. Requesting two or more permissions in single permission request is yet to be implemented.  
