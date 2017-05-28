@@ -1,24 +1,26 @@
-# KotlinoidRuntimePermission
+# RuntimePermissionsExtended 
 
-Kotlin extension functions that make permission handling concise and little bit easier.
+This project provides Kotlin extension functions that make permission handling easier and more concise.
 This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
 ## Usage
 
-All permissions that you need to use in app should be annotated in *AppPermission* class as in example bellow:
+All system permissions are annotated in *[AppPermission](https://github.com/Vuksa/KotlinoidRuntimePermission/blob/master/library/src/main/kotlin/com/techwolf/android/permissionhandler/AppPermission.kt)* class.
 
 AppPermission class preview:
 ```kotlin
-enum class AppPermission(val permissionName: String,
+sealed class AppPermission(val permissionName: String,
                          val requestCode: Int,
-                         val deniedMsgId: Int,
-                         val explanationMsgId: Int) {
+                         val deniedMessageId: Int,
+                         val explanationMessageId: Int) {
     
-    CAMERA_PERMISSION(permissionName = Manifest.permission.CAMERA, 
+    object CAMERA:  AppPermission(permissionName = Manifest.permission.CAMERA, 
     requestCode = 1, 
-    deniedMsgId = R.string.permission_camera_denied, 
-    explanationMsgId = R.string.permission_camera_explanation);
-    /** other permissions **/
+    deniedMessageId = R.string.permission_camera_denied, 
+    explanationMessageId = R.string.permission_camera_explanation)
+    /** 
+    * other permissions
+    **/
 }
 
 ```
@@ -26,9 +28,11 @@ enum class AppPermission(val permissionName: String,
 **`AppPermission`** class properties:
 * _`permissionName`_ - system permission that you want to request (string value)
 * _`requestCode`_ - *unique* requestCode for permission request (int value)
-* _`deniedMsgId`_ - string resource id of message that should be shown to user if permission is denied
-* _`explanationMsgId`_ - string resource id of message that should be shown to user if rationale 
+* _`deniedMessageId`_ - string resource id of message that should be shown to user if permission is denied
+* _`explanationMessageId`_ - string resource id of message that should be shown to user if rationale 
 permission explanation is needed
+
+>Note: If you want to use certain permission, you can do that by annotating **`AppPermision.{PERMISSION NAME}`**
 
 ### Step 0: Prepare AndroidManifest
 
@@ -38,7 +42,7 @@ Add the following line to AndroidManifest.xml:
 <uses-permission android:name="android.permission.CAMERA" />
 ```
 
-### Step 1: Request permission using `handlePermission` function
+### Step 1: Request permission by calling *[handlePermission](https://github.com/Vuksa/KotlinoidRuntimePermission/blob/master/library/src/main/kotlin/com/techwolf/android/permissionhandler/PermissionHandler.kt#L61)* function
 
 In Activity or Fragment where you want to perform operation that needs system permission use 
 `handlePermission` function as in example bellow:
@@ -57,7 +61,7 @@ fun captureCameraImage(){
             },
             onExplanationNeeded = {
                 /** Additional explanation for permission usage needed **/
-                snackbarWithAction(it.explanationMsgId) {
+                snackbarWithAction(it.explanationMessageId) {
                     requestPermission(it)
                 }
             })
@@ -84,7 +88,7 @@ fun handlePermission(permission: AppPermission,
 ### Step 2: Handle *`onPermissionRequestResult`* callback
 
 In Activity or Fragment where you need CAMERA permission you should override `onRequestPermissionsResult` function and delegate its parameters
-to `onRequestPermissionsResultReceived` extension functions as in example bellow:
+to [onRequestPermissionsResultReceived](https://github.com/Vuksa/KotlinoidRuntimePermission/blob/master/library/src/main/kotlin/com/techwolf/android/permissionhandler/PermissionHandler.kt#L75) extension functions as in example bellow:
 
 ```kotlin
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -96,7 +100,7 @@ to `onRequestPermissionsResultReceived` extension functions as in example bellow
                 },
                 onPermissionDenied = {
                     /** show message that permission is denied**/
-                    snackbarWithoutAction(it.deniedMsgId)
+                    snackbarWithoutAction(it.deniedMessageId)
                 }
         )
     }
