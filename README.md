@@ -2,9 +2,9 @@
 Kotlin extension functions that make permission handling concise and little bit easier.
 This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
-##Usage
+## Usage
 
-All permissions that you need to use in app should be annotated *AppPermission* class as in example bellow:
+All permissions that you need to use in app should be annotated in *AppPermission* class as in example bellow:
 
 AppPermission class preview:
 ```kotlin
@@ -21,14 +21,15 @@ enum class AppPermission(val permissionName: String,
 }
 
 ```
->AppPermission class properties:
+
+AppPermission class properties:
 * permissionName - system permission that you want to request (string value)
 * requestCode - *unique* requestCode for permission request (int value)
 * deniedMsgId - string resource id of message that should be shown to user if permission is denied
 * explanationMsgId - string resource id of message that should be shown to user if rationale 
 permission explanation is needed
 
-#### Step 0: Prepare AndroidManifest
+### Step 0: Prepare AndroidManifest
 
 Add the following line to AndroidManifest.xml:
 
@@ -36,7 +37,7 @@ Add the following line to AndroidManifest.xml:
 <uses-permission android:name="android.permission.CAMERA" />
 ```
 
-#### Step 1: Request permission using `handlePermission` function
+### Step 1: Request permission using `handlePermission` function
 
 In Activity or Fragment where you want to perform operation that needs system permission use 
 `handlePermission` function as in code block example bellow:
@@ -62,7 +63,7 @@ fun captureCameraImage(){
 }
 ```
 
-> handlePermission function signature:
+`handlePermission` function signature:
 ```kotlin
 fun handlePermission(permission: AppPermission, 
                    onGranted: (AppPermission) -> Unit, 
@@ -70,16 +71,16 @@ fun handlePermission(permission: AppPermission,
                    onExplanationNeeded: (AppPermission) -> Unit)
 ```
 
-Note: In every permission request callback block you can access instance of requested AppPermission with using Kotlin keyword ''**it**'' (implicit name of a single parameter).
+>Note: In every permission request callback block you can access instance of requested AppPermission via Kotlin keyword ''**it**'' (implicit name of a single parameter).
 
-> handlePermission function parameters:
+`handlePermission` function parameters:
 * AppPermission - permission for which we are creating request (AppPermission.CAMERA_PERMISSION)
-* onGranted - lamda expression that will be executed if permission is granted
-* onDenied - lamda expression that will be executed if permission is not granted
-* onExplanationNeeded - lamda expression that will be executed if additional explanation for permission is needed
+* onGranted - lambda expression that will be executed if permission is granted
+* onDenied - lambda expression that will be executed if permission is not granted
+* onExplanationNeeded - lambda expression that will be executed if additional explanation for permission is needed
 
 
-#### Step 2: Handle onPermissionRequestResult callback
+### Step 2: Handle onPermissionRequestResult callback
 
 In Activity or Fragment where you need CAMERA permission you should override `onRequestPermissionsResult` function and delegate its parameters
 to `onRequestPermissionsResultReceived` extension functions as in example bellow:
@@ -100,7 +101,7 @@ to `onRequestPermissionsResultReceived` extension functions as in example bellow
     }
 ```
 
->onRequestPermissionsResultReceived function signature:
+`onRequestPermissionsResultReceived` function signature:
 ```kotlin
 fun onRequestPermissionsResultReceived(requestCode: Int, permissions: Array<out String>,
                                        grantResults: IntArray,
@@ -108,12 +109,12 @@ fun onRequestPermissionsResultReceived(requestCode: Int, permissions: Array<out 
                                        onPermissionDenied: (AppPermission) -> Unit)
 ```
 
->onRequestPermissionsResultReceived function parameters: 
+`onRequestPermissionsResultReceived` function parameters: 
 * requestCode - the request code passed in requestPermission(Int) call.
 * permissions - the requested permissions. Never null.
 * grantResults - the grant results for the corresponding permissions.
-* onPermissionGranted - lamda block that is executed if permission is granted
-* onPermissionGranted - lamda block that is executed if permission is denied
+* onPermissionGranted - lambda block that is executed if permission is granted
+* onPermissionGranted - lambda block that is executed if permission is denied
 
 
 
