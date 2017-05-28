@@ -9,10 +9,10 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.techwolf.android.sample.permissions.AppPermission
-import com.techwolf.android.sample.permissions.handlePermission
-import com.techwolf.android.sample.permissions.onRequestPermissionsResultReceived
-import com.techwolf.android.sample.permissions.requestPermission
+import com.techwolf.android.permissionhandler.AppPermission
+import com.techwolf.android.permissionhandler.handlePermission
+import com.techwolf.android.permissionhandler.onRequestPermissionsResultReceived
+import com.techwolf.android.permissionhandler.requestPermission
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.content_view as contentView
 import kotlinx.android.synthetic.main.content_main.image_view as imageView
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode === AppPermission.CAMERA_PERMISSION.requestCode && resultCode === Activity.RESULT_OK) {
+        if (requestCode == AppPermission.CAMERA.requestCode && resultCode == Activity.RESULT_OK) {
             val photo = data?.extras?.get(DATA_KEY) as? Bitmap
             imageView.setImageBitmap(photo)
         }
@@ -63,12 +63,12 @@ class MainActivity : AppCompatActivity() {
                     startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
                 },
                 onPermissionDenied = {
-                    snackbarWithoutAction(it.deniedMsgId)
+                    snackbarWithoutAction(it.deniedMessageId)
                 }
         )
     }
 
-    fun captureCameraImage() = handlePermission(AppPermission.CAMERA_PERMISSION,
+    fun captureCameraImage() = handlePermission(AppPermission.CAMERA,
             onGranted = {
                 startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
             },
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 requestPermission(it)
             },
             onExplanationNeeded = {
-                snackbarWithAction(it.explanationMsgId) {
+                snackbarWithAction(it.explanationMessageId) {
                     requestPermission(it)
                 }
             })
@@ -89,4 +89,5 @@ class MainActivity : AppCompatActivity() {
 
     fun snackbarWithoutAction(messageId: Int) =
             Snackbar.make(contentView, messageId, Snackbar.LENGTH_SHORT).show()
+
 }
