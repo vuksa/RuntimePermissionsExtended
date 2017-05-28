@@ -1,4 +1,5 @@
 # KotlinoidRuntimePermission
+
 Kotlin extension functions that make permission handling concise and little bit easier.
 This extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
@@ -22,11 +23,11 @@ enum class AppPermission(val permissionName: String,
 
 ```
 
-AppPermission class properties:
-* permissionName - system permission that you want to request (string value)
-* requestCode - *unique* requestCode for permission request (int value)
-* deniedMsgId - string resource id of message that should be shown to user if permission is denied
-* explanationMsgId - string resource id of message that should be shown to user if rationale 
+**`AppPermission`** class properties:
+* _`permissionName`_ - system permission that you want to request (string value)
+* _`requestCode`_ - *unique* requestCode for permission request (int value)
+* _`deniedMsgId`_ - string resource id of message that should be shown to user if permission is denied
+* _`explanationMsgId`_ - string resource id of message that should be shown to user if rationale 
 permission explanation is needed
 
 ### Step 0: Prepare AndroidManifest
@@ -71,16 +72,16 @@ fun handlePermission(permission: AppPermission,
                    onExplanationNeeded: (AppPermission) -> Unit)
 ```
 
+**`handlePermission`** function parameters:
+* *`AppPermission`* - permission for which we are creating request (AppPermission.CAMERA_PERMISSION)
+* *`onGranted`* - lambda block that will be executed if permission is granted.
+* *`onDenied`* - lambda block that will be executed if permission is not granted.
+* *`onExplanationNeeded`* - lambda block that will be executed if additional explanation for permission is needed.
+
+
 >Note: In every permission request callback block you can access instance of requested AppPermission via Kotlin keyword ''**it**'' (implicit name of a single parameter).
 
-`handlePermission` function parameters:
-* AppPermission - permission for which we are creating request (AppPermission.CAMERA_PERMISSION)
-* onGranted - lambda expression that will be executed if permission is granted
-* onDenied - lambda expression that will be executed if permission is not granted
-* onExplanationNeeded - lambda expression that will be executed if additional explanation for permission is needed
-
-
-### Step 2: Handle onPermissionRequestResult callback
+### Step 2: Handle *`onPermissionRequestResult`* callback
 
 In Activity or Fragment where you need CAMERA permission you should override `onRequestPermissionsResult` function and delegate its parameters
 to `onRequestPermissionsResultReceived` extension functions as in example bellow:
@@ -101,7 +102,7 @@ to `onRequestPermissionsResultReceived` extension functions as in example bellow
     }
 ```
 
-`onRequestPermissionsResultReceived` function signature:
+**`onRequestPermissionsResultReceived`** function signature:
 ```kotlin
 fun onRequestPermissionsResultReceived(requestCode: Int, permissions: Array<out String>,
                                        grantResults: IntArray,
@@ -109,13 +110,13 @@ fun onRequestPermissionsResultReceived(requestCode: Int, permissions: Array<out 
                                        onPermissionDenied: (AppPermission) -> Unit)
 ```
 
-`onRequestPermissionsResultReceived` function parameters: 
-* requestCode - the request code passed in requestPermission(Int) call.
-* permissions - the requested permissions. Never null.
-* grantResults - the grant results for the corresponding permissions.
-* onPermissionGranted - lambda block that is executed if permission is granted
-* onPermissionGranted - lambda block that is executed if permission is denied
+**`onRequestPermissionsResultReceived`** function parameters: 
+* *`requestCode`* - the request code passed in requestPermission(Int) call.
+* *`permissions`* - the requested permissions. Never null.
+* *`grantResults`* - the grant results for the corresponding permissions.
+* *`onPermissionGranted`* - lambda block that will be executed if permission is granted.
+* *`onPermissionGranted`* - lambda block that will be executed if permission is denied.
 
 
 
->**Important Note:** Currently these permission extensions are only able to handle one permission request at the time. Requesting of two permission in one call is yet to be implemented.  
+>**Important Note:** Currently, these permission extensions are only able to handle one permission request at the time. Requesting two or more permissions in single permission request is yet to be implemented.  
