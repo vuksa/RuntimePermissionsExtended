@@ -72,3 +72,7 @@ logcat.txt
 .idea/*
 gradlew*
 gradle/*
+.idea/
+app/libs/
+gradle/
+library/src/main/res/drawable/
