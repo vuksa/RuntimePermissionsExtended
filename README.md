@@ -41,7 +41,7 @@ Add the following line to AndroidManifest.xml:
 ### Step 1: Request permission using `handlePermission` function
 
 In Activity or Fragment where you want to perform operation that needs system permission use 
-`handlePermission` function as in code block example bellow:
+`handlePermission` function as in example bellow:
 
 Example - requesting camera permission:
 ```kotlin
@@ -73,7 +73,7 @@ fun handlePermission(permission: AppPermission,
 ```
 
 **`handlePermission`** function parameters:
-* *`AppPermission`* - permission for which we are creating request (AppPermission.CAMERA_PERMISSION)
+* *`AppPermission`* - permission for which we are creating request (e.g AppPermission.CAMERA_PERMISSION)
 * *`onGranted`* - lambda block that will be executed if permission is granted.
 * *`onDenied`* - lambda block that will be executed if permission is not granted.
 * *`onExplanationNeeded`* - lambda block that will be executed if additional explanation for permission is needed.
