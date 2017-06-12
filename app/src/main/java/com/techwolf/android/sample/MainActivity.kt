@@ -1,10 +1,6 @@
-package android.example.com.kotlinoidruntimepermissions
+package com.techwolf.android.sample
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -13,24 +9,32 @@ import com.techwolf.android.permissionhandler.AppPermission
 import com.techwolf.android.permissionhandler.handlePermission
 import com.techwolf.android.permissionhandler.onRequestPermissionsResultReceived
 import com.techwolf.android.permissionhandler.requestPermission
+import com.techwolf.android.sample.camera.CameraFragment
+import com.techwolf.android.sample.camera.gone
+import com.techwolf.android.sample.camera.isVisible
+import com.techwolf.android.sample.camera.visible
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.content_view as contentView
-import kotlinx.android.synthetic.main.content_main.image_view as imageView
+import kotlinx.android.synthetic.main.activity_main.content_view as contentView
+import kotlinx.android.synthetic.main.activity_main.image_view as imageView
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+
+
 
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        const private val DATA_KEY = "data"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-
-        fab.setOnClickListener {
-            captureCameraImage()
+        button.setOnClickListener {
+            if (imageView.isVisible) {
+                showCameraPreviewScreen()
+            } else {
+                closeCameraPreviewScreen()
+            }
         }
     }
 
@@ -47,47 +51,60 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == AppPermission.CAMERA.requestCode && resultCode == Activity.RESULT_OK) {
-            val photo = data?.extras?.get(DATA_KEY) as? Bitmap
-            imageView.setImageBitmap(photo)
-        }
-
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResultReceived(requestCode, permissions, grantResults,
                 onPermissionGranted = {
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
+                    openCameraPreviewScreen()
                 },
                 onPermissionDenied = {
-                    snackbarWithoutAction(it.deniedMessageId)
+                    snackbarWithAction(it.deniedMessageId, R.string.action_settings) {
+                        openPermissionSettingsScreen()
+                    }
                 }
         )
     }
 
-    fun captureCameraImage() = handlePermission(AppPermission.CAMERA,
-            onGranted = {
-                startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
-            },
-            onDenied = {
-                requestPermission(it)
-            },
-            onExplanationNeeded = {
-                snackbarWithAction(it.explanationMessageId) {
+    fun showCameraPreviewScreen() {
+        handlePermission(AppPermission.CAMERA,
+                onGranted = {
+                    openCameraPreviewScreen()
+                }, onDenied = {
                     requestPermission(it)
-                }
-            })
+                }, onExplanationNeeded = {
+                    snackbarWithAction(it.explanationMessageId) { requestPermission(it) }
+                })
+    }
 
-    fun snackbarWithAction(messageId: Int, action: () -> Unit) {
+    fun snackbarWithAction(messageId: Int, actionText: Int = R.string.request_permission, action: () -> Unit) {
         Snackbar.make(contentView, messageId, Snackbar.LENGTH_LONG)
-                .setAction(R.string.request_permission) { action() }
+                .setAction(actionText) { action() }
                 .show()
     }
 
-    fun snackbarWithoutAction(messageId: Int) =
-            Snackbar.make(contentView, messageId, Snackbar.LENGTH_SHORT).show()
+    private fun openPermissionSettingsScreen() {
+        val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        intent.data = Uri.fromParts(getString(R.string.package_key_word), packageName, null)
+        startActivity(intent)
+    }
+
+    private fun openCameraPreviewScreen() {
+        imageView.gone()
+        container.visible()
+        button.text = getString(R.string.back)
+        supportFragmentManager.beginTransaction()
+                .add(R.id.container, CameraFragment.instance())
+                .addToBackStack(CameraFragment.TAG)
+                .commit()
+    }
+
+    private fun closeCameraPreviewScreen() {
+        button.text = getString(R.string.open_preview_screen)
+        container.gone()
+        imageView.visible()
+        supportFragmentManager.popBackStack()
+    }
 
 }
