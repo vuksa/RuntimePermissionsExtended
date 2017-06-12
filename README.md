@@ -53,7 +53,7 @@ fun captureCameraImage(){
         handlePermission(AppPermission.CAMERA_PERMISSION,
             onGranted = {
                  /** Permission is granted and we can use camera* */
-                startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
+                 openCameraPreviewScreen()
             },
             onDenied = {
                 /** Permission is not granted - we should request permission **/      
@@ -71,9 +71,9 @@ fun captureCameraImage(){
 `handlePermission` function signature:
 ```kotlin
 fun handlePermission(permission: AppPermission, 
-                   onGranted: (AppPermission) -> Unit, 
-                   onDenied: (AppPermission) -> Unit,
-                   onExplanationNeeded: (AppPermission) -> Unit)
+                     onGranted: (AppPermission) -> Unit, 
+                     onDenied: (AppPermission) -> Unit,
+                     onExplanationNeeded: (AppPermission) -> Unit)
 ```
 
 **`handlePermission`** function parameters:
@@ -96,7 +96,7 @@ to [onRequestPermissionsResultReceived](https://github.com/Vuksa/KotlinoidRuntim
         onRequestPermissionsResultReceived(requestCode, permissions, grantResults,
                 onPermissionGranted = {
                     /** call camera intent **/
-                    startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), it.requestCode)
+                     openCameraPreviewScreen()
                 },
                 onPermissionDenied = {
                     /** show message that permission is denied**/
