@@ -7,7 +7,7 @@ sealed class AppPermission(val permissionName: String,
                            val deniedMessageId: Int,
                            val explanationMessageId: Int) {
     companion object {
-        val permissions by lazy {
+        val permissions: List<AppPermission> by lazy {
             listOf(
                     READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE,
                     ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,

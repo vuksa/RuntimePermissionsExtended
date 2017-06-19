@@ -1,5 +1,7 @@
 # RuntimePermissionsExtended 
 
+[![Android Weekly](https://img.shields.io/badge/Android%20Weekly-260-blue.svg)](http://androidweekly.net/issues/issue-260)
+
 This project provides Kotlin extension functions that make permission handling easier and more concise.
 These extensions provide same implementation for permission handling in both *Activities* and *Fragments*.
 
@@ -52,7 +54,7 @@ Example - requesting camera permission:
 fun captureCameraImage(){
         handlePermission(AppPermission.CAMERA_PERMISSION,
             onGranted = {
-                 /** Permission is granted and we can use camera* */
+                 /** Permission is granted and we can use camera*inte */
                  openCameraPreviewScreen()
             },
             onDenied = {
@@ -95,7 +97,7 @@ to [onRequestPermissionsResultReceived](https://github.com/Vuksa/KotlinoidRuntim
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResultReceived(requestCode, permissions, grantResults,
                 onPermissionGranted = {
-                    /** call camera intent **/
+                    /** start camera preview **/
                      openCameraPreviewScreen()
                 },
                 onPermissionDenied = {
