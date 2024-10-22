@@ -1,3 +1,5 @@
+# DEPRECATED
+
 # RuntimePermissionsExtended 
 
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-260-blue.svg)](http://androidweekly.net/issues/issue-260)
